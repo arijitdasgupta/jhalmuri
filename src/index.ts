@@ -1,6 +1,8 @@
-import * as mysql from 'mysql';
+import { MySqlPool } from './lib/MySqlPool';
+import { MySqlQueries } from './lib/MySqlQueries';
+import { IPost } from './interfaces/IPost';
 
-var connection = mysql.createConnection({
+let mysqlConnectionPool = new MySqlPool({
   host: 'localhost',
   user: 'root',
   password: 'password',
@@ -8,14 +10,10 @@ var connection = mysql.createConnection({
   port: 3306
 });
 
-connection.connect(function(err) {
-  console.log(err);
-
-  connection.query(`Select * from wp_posts where post_status='publish'`, function(err, results) {
-    console.log(results);
-    connection.release();
-  });
+let queries = new MySqlQueries(mysqlConnectionPool);
+// One query to get them all...
+queries.getAllPosts().then((results) => {
+  console.log((results as IPost[]).map((item:IPost) => {
+    return item.post_title;
+  }));
 });
-
-console.log(mysql);
-console.log('hello');
