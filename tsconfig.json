@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "target": "es6",
+        "outDir": "./build"
+    },
+    "files": [
+      "./typings/index.d.ts",
+      "./src/index.ts"
+    ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "jhalmuri",
+  "version": "0.5.0",
+  "description": "A wordpress blog rendering engine in nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "build": "tsc",
+    "start:dev": "nodemon --delay 5 ./build/index.js",
+    "start": "node ./build/index.js",
+    "install:typings": "typings install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arijit Dasgupta <arijit.rivalslayer@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/mysql": "0.0.31",
+    "mysql": "^2.13.0",
+    "typescript": "^2.1.6",
+    "typings": "^2.1.0"
+  }
+}
