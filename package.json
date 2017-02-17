@@ -2,7 +2,7 @@
   "name": "jhalmuri",
   "version": "0.5.0",
   "description": "A wordpress blog rendering engine in nodeJS",
-  "main": "index.js",
+  "main": "./build/index.js",
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",

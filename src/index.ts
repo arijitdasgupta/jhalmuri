@@ -13,7 +13,8 @@ let mysqlConnectionPool = new MySqlPool({
 let queries = new MySqlQueries(mysqlConnectionPool);
 // One query to get them all...
 queries.getAllPosts().then((results) => {
-  console.log((results as IPost[]).map((item:IPost) => {
+  console.log(results.map((item) => {
     return item.post_title;
   }));
+  mysqlConnectionPool.end();
 });

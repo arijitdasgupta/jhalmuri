@@ -1,7 +1,6 @@
 import * as mysql from 'mysql';
-import { IConnectionPool } from '../interfaces/IConnectionPool';
 
-export interface IMySqlConnParams {
+export interface IMySQLConnParams {
   host: string;
   port: number;
   database: string;
@@ -9,10 +8,22 @@ export interface IMySqlConnParams {
   password: string;
 }
 
-export class MySqlPool implements IConnectionPool {
+export class MySqlPool {
   public connectionPool;
 
-  constructor(configuration:IMySqlConnParams) {
+  constructor(configuration:IMySQLConnParams) {
     this.connectionPool = mysql.createPool(configuration);
+  }
+
+  public end = () => {
+    return new Promise((resolve, reject) => {
+      this.connectionPool.end((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(true);
+        }
+      });
+    });
   }
 }
