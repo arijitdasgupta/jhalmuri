@@ -4,3 +4,6 @@ typings/
 
 # Work file
 dumpydumpy/
+
+# IDE leftovers
+.idea/

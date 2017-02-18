@@ -1,24 +1,46 @@
-import { MySqlPool } from './lib/sql/MySqlPool';
-import { MySqlQueries } from './lib/sql/MySqlQueries';
+import {MySqlPool} from './lib/sql/MySqlPool';
+import {MySqlQueries} from './lib/sql/MySqlQueries';
+import {PostsRepository} from './lib/repositories/PostsRepository';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import { isNaN } from 'lodash';
 
+// Configuration stuff
+let BASEURL = process.env['BASE_URL'] || '/blog';
+let PORT = isNaN(parseInt(process.env['SERVER_PORT'])) ? 7777 : parseInt(process.env['SERVER_PORT']);
+let MYSQLHOST = process.env['MYSQL_HOST'] || 'localhost';
+let MYSQLPORT = process.env['MYSQL_PORT'] || 3306;
+let MYSQLUSER = process.env['MYSQL_USER'] || 'root';
+let MYSQLPASSWORD = process.env['MYSQL_PASSWORD'] || 'password';
+let WPDATABASE = process.env['MYSQL_DATABASE'] || 'wordpress';
+
+// Top level instances
 let mysqlConnectionPool = new MySqlPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'wordpress',
-  port: 3306
+    host: MYSQLHOST,
+    user: MYSQLUSER,
+    password: MYSQLPASSWORD,
+    database: WPDATABASE,
+    port: MYSQLPORT
 });
+console.log(`MySQL collection pooling to ${MYSQLHOST}:${MYSQLPORT} on DB ${WPDATABASE}`);
 
 let queries = new MySqlQueries(mysqlConnectionPool);
-// One query to get them all...
-queries.getPostsTable().then((results) => {
-  console.log(results.map((item) => {
-    return item.post_title;
-  }));
+let posts = new PostsRepository(queries, 10);
 
-  queries.getOptionsTable().then((result) => {
-    console.log(result);
+const application = express();
 
+// App config
+application.get(`${BASEURL}/api/posts`, (req: express.Request, res: express.Response, next) => {
+    posts.getPosts().then((results) => {
+       res.send(results);
+    });
+});
+
+console.log(`Starting server on ${PORT}`);
+console.log(`Base URL is ${BASEURL}`);
+application.use(bodyParser.json());
+application.listen(PORT);
+
+process.on('exit', () => {
     mysqlConnectionPool.end();
-  });
 });

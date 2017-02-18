@@ -1,5 +1,5 @@
 import { IConnectionPool } from '../../interfaces/IConnectionPool';
-import { IPostSqlData } from '../../interfaces/IPost';
+import { IPostSqlData, IPostSqlCount } from '../../interfaces/IPost';
 import { ISiteSqldata } from '../../interfaces/ISiteData';
 
 export class MySqlQueries {
@@ -20,8 +20,28 @@ export class MySqlQueries {
     });
   }
 
-  public getPostsTable = ():Promise<IPostSqlData[]> => {
-    return this.doQuery<IPostSqlData[]>(`select * from wp_posts where post_status='publish'`);
+  public getPostsTable = (offset:number, limit:number):Promise<IPostSqlData[]> => {
+    return this.doQuery<IPostSqlData[]>(`select * from wp_posts
+      where post_status='publish'
+      order by post_date_gmt desc
+      limit ${limit}
+      offset ${offset}`);
+  }
+
+  public getPostRowByName = (postName:string):Promise<IPostSqlData> => {
+    return this.doQuery<IPostSqlData>(`select * from wp_posts
+      where post_status='publish'
+      and
+      post_name='${postName}'`).then((result) => {
+        return result[0];
+      });
+  }
+
+  public getPostsCount = ():Promise<IPostSqlCount> => {
+    return this.doQuery<IPostSqlCount>(`select count(*) from wp_posts
+      where post_status='publish'`).then((count) => {
+        return {count: count[0]['count(*)']}
+      });
   }
 
   public getOptionsTable = ():Promise<ISiteSqldata> => {
