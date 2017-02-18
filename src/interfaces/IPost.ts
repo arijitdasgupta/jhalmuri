@@ -1,3 +1,3 @@
-export interface IPost {
-  post_title: string; 
+export interface IPostSqlData {
+  post_title: string;
 }
