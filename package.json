@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/mysql": "0.0.31",
     "mysql": "^2.13.0",
+    "rx": "^4.1.0",
     "typescript": "^2.1.6",
     "typings": "^2.1.0"
   }
