@@ -1,9 +1,9 @@
-import { MySqlPool } from './MySqlPool';
+import { IConnectionPool } from '../../interfaces/IConnectionPool';
 import { IPostSqlData } from '../../interfaces/IPost';
 import { ISiteSqldata } from '../../interfaces/ISiteData';
 
 export class MySqlQueries {
-  constructor(private pool:MySqlPool) {}
+  constructor(private pool:IConnectionPool) {}
 
   private doQuery = <T>(queryString:string):Promise<T> => {
     return this.pool.getConnection().then((connection) => {
