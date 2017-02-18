@@ -1,6 +1,6 @@
-import { IConnectionPool } from '../../interfaces/IConnectionPool';
-import { IPostSqlData, IPostSqlCount } from '../../interfaces/IPost';
-import { ISiteOptionsTableItem } from '../../interfaces/ISiteData';
+import { IConnectionPool } from '../interfaces/IConnectionPool';
+import { IPostSqlData, IPostSqlCount } from '../interfaces/IPost';
+import { ISiteOptionsTableItem } from '../interfaces/ISiteData';
 
 export class MySqlQueries {
   private postsTableName:string;

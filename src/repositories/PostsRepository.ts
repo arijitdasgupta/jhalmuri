@@ -1,5 +1,5 @@
 import { MySqlQueries } from '../sql/MySqlQueries';
-import {IPostSqlData, IPostSqlCount} from '../../interfaces/IPost';
+import {IPostSqlData, IPostSqlCount} from '../interfaces/IPost';
 
 export class PostsRepository {
   constructor(

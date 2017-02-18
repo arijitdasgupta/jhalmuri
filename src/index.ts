@@ -1,10 +1,14 @@
-import {MySqlPool} from './lib/sql/MySqlPool';
-import {MySqlQueries} from './lib/sql/MySqlQueries';
-import {PostsRepository} from './lib/repositories/PostsRepository';
-import {SitesRepository} from './lib/repositories/SitesRepository';
+import {MySqlPool} from './sql/MySqlPool';
+import {MySqlQueries} from './sql/MySqlQueries';
+import {PostsRepository} from './repositories/PostsRepository';
+import {SitesRepository} from './repositories/SitesRepository';
 import { isNaN } from 'lodash';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import {ApiApplication} from './applications/ApiApplication';
+import {RenderApplication} from './applications/RenderApplication';
+import {StaticApplication} from './applications/StaticApplication';
+import {IApplication} from './interfaces/IApplication';
 
 // Configuration stuff
 let BASEURL = process.env['BASE_URL'] || '/blog';
@@ -17,6 +21,7 @@ let WPDATABASE = process.env['MYSQL_DATABASE'] || 'wordpress';
 let WPTABLEPREFIX = process.env['WP_TABLE_PREFIX'] || 'wp_';
 
 // Top level instances
+console.log(`MySQL connection pooling to ${MYSQLHOST}:${MYSQLPORT} on DB ${WPDATABASE}`);
 let mysqlConnectionPool = new MySqlPool({
     host: MYSQLHOST,
     user: MYSQLUSER,
@@ -24,29 +29,24 @@ let mysqlConnectionPool = new MySqlPool({
     database: WPDATABASE,
     port: MYSQLPORT
 });
-console.log(`MySQL collection pooling to ${MYSQLHOST}:${MYSQLPORT} on DB ${WPDATABASE}`);
-
 let queries = new MySqlQueries(mysqlConnectionPool, WPTABLEPREFIX);
 let posts = new PostsRepository(queries, 10);
 let siteOptions = new SitesRepository(queries);
 
+// In an array so that sequential route resolve is maintained
+let subApps:IApplication[] = [
+    new ApiApplication(posts, siteOptions),
+    new StaticApplication(),
+    new RenderApplication(posts, siteOptions),
+    <IApplication>{ app:bodyParser.json() }
+];
+
 const application = express();
 
-// App config
-application.get(`${BASEURL}/api/posts`, (req: express.Request, res: express.Response, next) => {
-    posts.getPosts().then((results) => {
-       res.send(results);
-    });
-});
-
-// App config
-application.get(`${BASEURL}/api/site`, (req: express.Request, res: express.Response, next) => {
-    siteOptions.getSiteDetails().then((results) => {
-        res.send(results);
-    });
+subApps.forEach((subApp:IApplication) => {
+    application.use(BASEURL, subApp.app);
 });
 
 console.log(`Starting server on ${PORT}`);
 console.log(`Base URL is ${BASEURL}`);
-application.use(bodyParser.json());
 application.listen(PORT);
