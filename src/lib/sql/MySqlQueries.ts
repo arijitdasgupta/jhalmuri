@@ -1,6 +1,6 @@
 import { MySqlPool } from './MySqlPool';
-import { IPostSqlData } from '../interfaces/IPost';
-import { ISiteSqldata } from '../interfaces/ISiteData';
+import { IPostSqlData } from '../../interfaces/IPost';
+import { ISiteSqldata } from '../../interfaces/ISiteData';
 
 export class MySqlQueries {
   constructor(private pool:MySqlPool) {}

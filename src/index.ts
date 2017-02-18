@@ -1,5 +1,5 @@
-import { MySqlPool } from './lib/MySqlPool';
-import { MySqlQueries } from './lib/MySqlQueries';
+import { MySqlPool } from './lib/sql/MySqlPool';
+import { MySqlQueries } from './lib/sql/MySqlQueries';
 
 let mysqlConnectionPool = new MySqlPool({
   host: 'localhost',
