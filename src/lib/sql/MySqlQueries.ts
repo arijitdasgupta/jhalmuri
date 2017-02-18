@@ -1,9 +1,15 @@
 import { IConnectionPool } from '../../interfaces/IConnectionPool';
 import { IPostSqlData, IPostSqlCount } from '../../interfaces/IPost';
-import { ISiteSqldata } from '../../interfaces/ISiteData';
+import { ISiteOptionsTableItem } from '../../interfaces/ISiteData';
 
 export class MySqlQueries {
-  constructor(private pool:IConnectionPool) {}
+  private postsTableName:string;
+  private optionsTableName:string;
+
+  constructor(private pool:IConnectionPool, private wpTablePrefix:string) {
+    this.postsTableName = `${wpTablePrefix}posts`;
+    this.optionsTableName = `${wpTablePrefix}options`;
+  }
 
   private doQuery = <T>(queryString:string):Promise<T> => {
     return this.pool.getConnection().then((connection) => {
@@ -18,10 +24,10 @@ export class MySqlQueries {
         });
       });
     });
-  }
+  };
 
   public getPostsTable = (offset:number, limit:number):Promise<IPostSqlData[]> => {
-    return this.doQuery<IPostSqlData[]>(`select * from wp_posts
+    return this.doQuery<IPostSqlData[]>(`select * from ${this.postsTableName}
       where post_status='publish'
       order by post_date_gmt desc
       limit ${limit}
@@ -29,7 +35,7 @@ export class MySqlQueries {
   }
 
   public getPostRowByName = (postName:string):Promise<IPostSqlData> => {
-    return this.doQuery<IPostSqlData>(`select * from wp_posts
+    return this.doQuery<IPostSqlData>(`select * from ${this.postsTableName}
       where post_status='publish'
       and
       post_name='${postName}'`).then((result) => {
@@ -38,13 +44,13 @@ export class MySqlQueries {
   }
 
   public getPostsCount = ():Promise<IPostSqlCount> => {
-    return this.doQuery<IPostSqlCount>(`select count(*) from wp_posts
+    return this.doQuery<IPostSqlCount>(`select count(*) from ${this.postsTableName}
       where post_status='publish'`).then((count) => {
         return {count: count[0]['count(*)']}
       });
   }
 
-  public getOptionsTable = ():Promise<ISiteSqldata> => {
-    return this.doQuery<ISiteSqldata>(`select * from wp_options`);
+  public getOptionsTable = ():Promise<ISiteOptionsTableItem[]> => {
+    return this.doQuery<ISiteOptionsTableItem[]>(`select * from ${this.optionsTableName}`);
   }
 }

@@ -13,3 +13,4 @@ Environment variables,
 `MYSQLUSER` default `root`
 `MYSQLPASSWORD` default `password`
 `MYSQL_DATABASE` default `wordpress`
+`WP_TABLE_PREFIX` default `wp_`

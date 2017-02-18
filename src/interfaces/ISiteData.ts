@@ -1,6 +1,4 @@
-export interface ISiteSqldata {
-  siteurl: string;
-  home: string;
-  blogname: string;
-  blogdescription: string;
+export interface ISiteOptionsTableItem {
+  option_name: string;
+  option_value: string;
 }
