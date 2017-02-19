@@ -9,6 +9,6 @@ export class StaticApplication implements IApplication {
     constructor() {
         this.app = express();
 
-        this.app.get('/assets', express.static('./assets/'));
+        this.app.use('/assets', express.static('./assets'));
     }
 }

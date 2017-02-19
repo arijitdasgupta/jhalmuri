@@ -1,4 +1,4 @@
-export interface IActionSpec {
+interface IActionSpec {
     SINGLE_POST: any;
     PAGE: any;
     HOME_PAGE: any;

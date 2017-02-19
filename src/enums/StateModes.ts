@@ -1,8 +1,9 @@
-import {IActionSpec} from '../routes/Routes';
+import {IStateSpecs} from '../interfaces/IStates';
 
-export const StateModes:IActionSpec = {
+export const StateModes:IStateSpecs = {
     HOME_PAGE: 'HOMEPAGE',
     PAGE: 'PAGE',
     SINGLE_POST: 'POST',
-    REST: 'NOT_FOUND'
+    REST: 'NOT_FOUND',
+    ERROR: 'ERROR'
 }
