@@ -29,9 +29,7 @@
     "rx": "^4.1.0",
     "typescript": "^2.1.6",
     "typings": "^2.1.0",
-    "universal-router": "^2.0.0"
-  },
-  "devDependencies": {
+    "universal-router": "^2.0.0",
     "awesome-typescript-loader": "^3.0.4",
     "source-map-loader": "^0.1.6",
     "webpack": "^2.2.1"
