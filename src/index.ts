@@ -38,8 +38,8 @@ let renderer = new Renderer(BASEURL);
 // In an array so that sequential route resolve is maintained
 let subApps:IApplication[] = [
     new ApiApplication(posts, siteOptions),
+    new StaticApplication(),
     new RenderApplication(posts, siteOptions, renderer),
-    new StaticApplication()
 ];
 
 const application = express();
