@@ -17,12 +17,10 @@ export const Page = (props:IAppState) => {
     let siteDetails = pageData.siteDetails;
     let content = pageData.content;
 
-    if (props.appState.mode === StateModes.PAGE) {
-        mainContent = content.map((item:IPost, i) => <Post post={item} key={i} />)
-    } else if (props.appState.mode === StateModes.SINGLE_POST) {
-        mainContent = <Post post={content} />
+    if (props.appState.mode === StateModes.REST) {
+        mainContent = <PageNotFound />;
     } else {
-        mainContent = <PageNotFound />
+        mainContent = content.map((item:IPost, i) => <Post post={item} key={i} />);
     }
 
     return <div>

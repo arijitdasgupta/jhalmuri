@@ -79,7 +79,7 @@ export class BlogService {
                       totalPages: Math.ceil(postCount/this.posts.getNPostsPerPage()),
                       pageNumber: null,
                       pageData: {
-                          content: this.convertPostDataToObject(post),
+                          content: [this.convertPostDataToObject(post)],
                           siteDetails: siteDetails
                       }
                   });
