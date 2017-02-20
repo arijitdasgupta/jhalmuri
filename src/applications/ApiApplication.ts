@@ -1,5 +1,3 @@
-import {PostsRepository} from '../repositories/PostsRepository';
-import {SitesRepository} from '../repositories/SitesRepository';
 import * as express from 'express';
 import {IApplication} from '../interfaces/IApplication';
 import {BlogService} from '../services/BlogService';
@@ -34,17 +32,5 @@ export class ApiApplication implements IApplication {
                 res.send(err);
             });
         });
-
-        // this.app.get(`/api/posts/count`, (req: express.Request, res: express.Response, next) => {
-        //     this.posts.getPostCount().then((results) => {
-        //         res.send(results);
-        //     });
-        // });
-        //
-        // this.app.get(`/api/site`, (req: express.Request, res: express.Response, next) => {
-        //     this.siteOptions.getSiteDetails().then((results) => {
-        //         res.send(results);
-        //     });
-        // });
     }
 }

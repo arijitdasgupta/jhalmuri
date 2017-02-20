@@ -3,7 +3,7 @@ import {PostsRepository} from '../repositories/PostsRepository';
 import {StateModes} from '../enums/StateModes';
 import {IRenderData} from '../interfaces/IRenderData';
 import {ISiteOptions, ISqlSiteOptions} from '../interfaces/ISiteData';
-import {IAuthorSqlData, IAuthorData} from '../interfaces/IAuthorData';
+import {IAuthorData} from '../interfaces/IAuthorData';
 import {IPostSqlData, IPost} from '../interfaces/IPost';
 
 export class BlogService {
