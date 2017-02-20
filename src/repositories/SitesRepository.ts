@@ -1,6 +1,7 @@
 import {MySqlQueries} from '../sql/MySqlQueries';
 import { forEach } from 'lodash';
 import {ISqlSiteOptions} from '../interfaces/ISiteData';
+import {IAuthorSqlData} from '../interfaces/IAuthorData';
 
 export class SitesRepository {
     constructor(private queries:MySqlQueries){}
@@ -12,6 +13,12 @@ export class SitesRepository {
                siteDetails[item.option_name] = item.option_value;
             });
             return siteDetails;
+        });
+    };
+
+    public getAuthorDetails = (authorId:number):Promise<IAuthorSqlData> => {
+        return this.queries.getAuthorDetail(authorId).then((results) => {
+            return results[0];
         });
     }
 }

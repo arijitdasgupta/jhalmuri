@@ -20,7 +20,7 @@ export class BlogService {
         };
     };
 
-    private convertAuthorDetailToObject = (authorSqlData: IAuthorSqlData):IAuthorData => {
+    private convertAuthorDetailToObject = (authorSqlData: IPostSqlData):IAuthorData => {
         return {
             userLogin: authorSqlData.user_login,
             userEmail: authorSqlData.user_email,
@@ -29,23 +29,18 @@ export class BlogService {
         };
     };
 
-    private convertPostDataToObject = (postData: IPostSqlData, authorData: IAuthorData):IPost => {
+    private convertPostDataToObject = (postData: IPostSqlData):IPost => {
         return {
             postTitle: postData.post_title,
             postContent: postData.post_content,
             postType: postData.post_mime_type,
             postName: postData.post_name,
-            postAuthor: {
-                userLogin: authorData.userLogin,
-                userEmail: authorData.userEmail,
-                userNickname: authorData.userNickname,
-                displayName: authorData.displayName
-            },
+            postAuthor: this.convertAuthorDetailToObject(postData),
             postMime: postData.post_mime_type,
             postDate: postData.post_date,
             postDateGmt: postData.post_date_gmt
         };
-    }
+    };
 
     public getPage = (pageNo:number = 0):Promise<IRenderData> => {
         return new Promise((resolve, reject) => {
@@ -59,7 +54,7 @@ export class BlogService {
                     mode: StateModes.PAGE,
                     pageData: {
                         siteDetails: siteDetails,
-                        content: posts
+                        content: posts.map(this.convertPostDataToObject)
                     }
                 });
             }).catch((err) => {
@@ -80,7 +75,7 @@ export class BlogService {
                   resolve({
                       mode: StateModes.SINGLE_POST,
                       pageData: {
-                          content: post,
+                          content: this.convertPostDataToObject(post),
                           siteDetails: siteDetails
                       }
                   });

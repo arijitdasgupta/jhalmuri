@@ -1,6 +1,7 @@
-import {IAuthorData} from './IAuthorData';
+import {IAuthorData, IAuthorSqlData} from './IAuthorData';
 
-export interface IPostSqlData {
+// Thanks to INNER JOIN
+export interface IPostSqlData extends IAuthorSqlData {
   post_title: string;
   post_content: string;
   post_type: string;
