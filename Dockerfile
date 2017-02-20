@@ -9,5 +9,3 @@ RUN ["npm", "run", "install:typings"]
 RUN ["npm", "run", "build"]
 
 CMD ["npm", "start"]
-
-EXPOSE 7777

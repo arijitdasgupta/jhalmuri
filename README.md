@@ -9,8 +9,8 @@ Environment variables,
 `BASE_URL` default `/blog`
 `SERVER_PORT` default `7777`
 `MYSQL_HOST` default `localhost`
-`MYSQLPORT` default `3306`
-`MYSQLUSER` default `root`
-`MYSQLPASSWORD` default `password`
+`MYSQL_PORT` default `3306`
+`MYSQL_USER` default `root`
+`MYSQL_PASSWORD` default `password`
 `MYSQL_DATABASE` default `wordpress`
 `WP_TABLE_PREFIX` default `wp_`

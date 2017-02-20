@@ -10,6 +10,7 @@ import {RenderApplication} from './applications/RenderApplication';
 import {StaticApplication} from './applications/StaticApplication';
 import {IApplication} from './interfaces/IApplication';
 import {Renderer} from './renderer/Renderer';
+import {BlogService} from './services/BlogService';
 
 // Configuration stuff
 let BASEURL = process.env['BASE_URL'] || '/blog';
@@ -33,13 +34,14 @@ let mysqlConnectionPool = new MySqlPool({
 let queries = new MySqlQueries(mysqlConnectionPool, WPTABLEPREFIX);
 let posts = new PostsRepository(queries, 10);
 let siteOptions = new SitesRepository(queries);
+let blogService = new BlogService(posts, siteOptions);
 let renderer = new Renderer(BASEURL);
 
 // In an array so that sequential route resolve is maintained
 let subApps:IApplication[] = [
-    new ApiApplication(posts, siteOptions),
+    new ApiApplication(blogService),
     new StaticApplication(),
-    new RenderApplication(posts, siteOptions, renderer),
+    new RenderApplication(blogService, renderer),
 ];
 
 const application = express();

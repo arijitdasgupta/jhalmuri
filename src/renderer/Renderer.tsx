@@ -3,18 +3,18 @@ import {Provider, connect} from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import * as React from 'react';
+import {IRenderData} from '../interfaces/IRenderData';
 
 declare let escape;
 
 export class Renderer {
     constructor(private baseUrl) {}
 
-    public render = (state, component):string => {
+    public render = (state:IRenderData, component):string => {
         let store = createStore(mainReducer, state);
         let App = connect((state) => {
             return {
-                mode: state.mode,
-                pageData: state.pageData
+                appState: state
             };
         }, () => { // No actions on the server
             return {};

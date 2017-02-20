@@ -1,16 +1,21 @@
 import * as React from 'react';
+import {IRenderData} from '../interfaces/IRenderData';
 
-export const Page = (props) => {
+interface IAppState {
+    appState: IRenderData;
+}
+
+export const Page = (props:IAppState) => {
     let stuff;
-
-    if (props.pageData instanceof Array) {
-        stuff = props.pageData.map((item, i) => <pre key={i}>{JSON.stringify(item)}</pre>)
+    let pageData = props.appState.pageData;
+    if (pageData.content instanceof Array) {
+        stuff = pageData.content.map((item, i) => <pre key={i}>{JSON.stringify(item)}</pre>)
     } else {
-        stuff = <pre>{JSON.stringify(props.pageData)}</pre>;
+        stuff = <pre>{JSON.stringify(pageData.content)}</pre>;
     }
 
     return <div>
-        <p>{props.mode}</p>
+        <p>{props.appState.mode}</p>
         {stuff}
     </div>;
 };
