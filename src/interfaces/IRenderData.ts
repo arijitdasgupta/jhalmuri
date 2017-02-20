@@ -6,6 +6,6 @@ export interface IRenderData {
     totalPages: number;
     pageData: {
         siteDetails: ISiteOptions;
-        content: IPost | IPost[];
+        content: any;
     }
 }
