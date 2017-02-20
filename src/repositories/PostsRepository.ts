@@ -22,4 +22,8 @@ export class PostsRepository {
       return countObject.count;
     });
   }
+
+  public getNPostsPerPage():number {
+      return this.nPostsPerPage;
+  }
 }

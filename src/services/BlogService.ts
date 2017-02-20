@@ -52,6 +52,8 @@ export class BlogService {
                 const siteDetails = this.convertSiteDetailsToObject(siteOptions, postCount);
                 resolve({
                     mode: StateModes.PAGE,
+                    pageNumber: pageNo,
+                    totalPages: Math.ceil(postCount/this.posts.getNPostsPerPage()),
                     pageData: {
                         siteDetails: siteDetails,
                         content: posts.map(this.convertPostDataToObject)
@@ -74,6 +76,8 @@ export class BlogService {
                   const siteDetails = this.convertSiteDetailsToObject(siteOptions, postCount);
                   resolve({
                       mode: StateModes.SINGLE_POST,
+                      totalPages: Math.ceil(postCount/this.posts.getNPostsPerPage()),
+                      pageNumber: null,
                       pageData: {
                           content: this.convertPostDataToObject(post),
                           siteDetails: siteDetails
