@@ -6,7 +6,6 @@ WORKDIR app
 RUN echo 'Starting to make some jhalmuri'
 RUN npm install -g yarn
 RUN ["yarn", "install"]
-RUN ["yarn", "run", "install:typings"]
 RUN ["yarn", "run", "build"]
 
 CMD ["yarn", "start"]
