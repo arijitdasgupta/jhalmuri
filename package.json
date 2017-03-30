@@ -7,7 +7,7 @@
     "clean": "rm -rf build/",
     "build": "tsc && webpack -p",
     "start": "node ./build/index.js",
-    "watch": "ts-node ./src/index.ts & webpack-dev-server --watch",
+    "watch": "nodemon --exec \"ts-node ./src/index.ts\" & webpack-dev-server --watch",
     "install:typings": "typings install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
