@@ -6,7 +6,7 @@ export const Post = (props) => {
 
     return (
         <div>
-            <h2>{post.postTitle}</h2>
+            <h2><a href={post.postName}>{post.postTitle}</a></h2>
             <p dangerouslySetInnerHTML={{__html : post.postContent}} />
         </div>
     );

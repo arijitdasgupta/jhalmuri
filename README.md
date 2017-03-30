@@ -1,8 +1,8 @@
 jhalmuri
 ========
 
-A Wordpress blog rendering engine running on nodeJS
----------------------------------------------------
+A Wordpress blog rendering engine running on nodeJS, especially useful for embedding blogs in other pages
+--------------------------------------------------------------------------------------------------------
 
 Environment variables,
 
@@ -14,3 +14,7 @@ Environment variables,
 `MYSQL_PASSWORD` default `password`
 `MYSQL_DATABASE` default `wordpress`
 `WP_TABLE_PREFIX` default `wp_`
+
+`yarn run start:dev`
+`yarn run watch:frontend`
+`yarn run watch:backend`

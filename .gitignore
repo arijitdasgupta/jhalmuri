@@ -7,3 +7,6 @@ dumpydumpy/
 
 # IDE leftovers
 .idea/
+
+npm-debug.log
+yarn-error.log

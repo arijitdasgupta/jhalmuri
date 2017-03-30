@@ -28,6 +28,10 @@ export class Renderer {
         return renderedHtml;
     };
 
+    // <script>
+    //     window.__APP__STATE__STRING__ = '${appStateString}';
+    // </script>
+
     private renderFullHtml = (appState, renderedMarkup) => {
         const appStateString = escape(JSON.stringify(appState));
 
@@ -35,9 +39,6 @@ export class Renderer {
         <html>
             <head>
                 <title>Something</title>
-                <script>
-                    window.__APP__STATE__STRING__ = '${appStateString}';
-                </script>
                 <script src="${this.baseUrl}/assets/bundle.js"></script>
             </head>
             <body>
