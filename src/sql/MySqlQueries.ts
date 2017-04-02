@@ -32,8 +32,10 @@ export class MySqlQueries {
     public getPostsTable = (offset: number, limit: number): Promise<IPostSqlData[]> => {
         return this.doQuery<IPostSqlData[]>(`select * from ${this.postsTableName}
             inner join ${this.usersTableName}
-            on ${this.postsTableName}.post_author=${this.usersTableName}.id 
+            on ${this.postsTableName}.post_author=${this.usersTableName}.id
             where post_status='publish'
+            and
+            post_type='post'
             order by post_date_gmt desc
             limit ${limit}
             offset ${offset}`);
@@ -42,8 +44,10 @@ export class MySqlQueries {
     public getPostRowByName = (postName: string): Promise<IPostSqlData> => {
         return this.doQuery<IPostSqlData>(`select * from ${this.postsTableName}
             inner join ${this.usersTableName}
-            on ${this.postsTableName}.post_author=${this.usersTableName}.id 
+            on ${this.postsTableName}.post_author=${this.usersTableName}.id
             where post_status='publish'
+            and
+            post_type='post'
             and
             post_name='${postName}'`).then((result) => {
                 return result[0];
@@ -52,7 +56,7 @@ export class MySqlQueries {
 
     public getPostsCount = (): Promise<IPostSqlCount> => {
         return this.doQuery<IPostSqlCount>(`select count(*) from ${this.postsTableName}
-            where post_status='publish'`).then((count) => {
+            where post_status='publish' and post_type='post'`).then((count) => {
                 return {count: count[0]['count(*)']}
             });
     };
