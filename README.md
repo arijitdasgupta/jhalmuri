@@ -14,7 +14,7 @@ Environment variables,
 `MYSQL_PASSWORD` default `password`
 `MYSQL_DATABASE` default `wordpress`
 `WP_TABLE_PREFIX` default `wp_`
+`POSTS_PER_PAGE` default `10`
 
-`yarn run start:dev`
-`yarn run watch:frontend`
-`yarn run watch:backend`
+`yarn run start`
+`yarn run watch`

@@ -21,7 +21,7 @@ let MYSQLUSER = process.env['MYSQL_USER'] || 'root';
 let MYSQLPASSWORD = process.env['MYSQL_PASSWORD'] || 'password';
 let WPDATABASE = process.env['MYSQL_DATABASE'] || 'wordpress';
 let WPTABLEPREFIX = process.env['WP_TABLE_PREFIX'] || 'wp_';
-let POSTS_PER_PAGE = process.env['POSTS_PER_PAGE'] || 10;
+let POSTS_PER_PAGE = isNaN(parseInt(process.env['POSTS_PER_PAGE'])) ? 10 : parseInt(process.env['POSTS_PER_PAGE']);
 
 // Top level instances
 console.log(`MySQL connection pooling to ${MYSQLHOST}:${MYSQLPORT} on DB ${WPDATABASE}`);
