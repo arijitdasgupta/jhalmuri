@@ -3,7 +3,9 @@ import {Provider, connect} from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { createStore } from 'redux';
 import * as React from 'react';
+import * as _ from 'lodash';
 import {IRenderData} from '../interfaces/IRenderData';
+import {IPost} from '../interfaces/IPost';
 
 declare let escape;
 
@@ -31,6 +33,14 @@ export class Renderer {
     // <script>
     //     window.__APP__STATE__STRING__ = '${appStateString}';
     // </script>
+
+    // TODO: Refactor later
+    public renderRepeater = (renderData:any[], repeaterComponent):string => {
+        return _.reduce(renderData, (accumulator, item, key) => {
+            return accumulator + renderToString(repeaterComponent(item));
+        }, '');
+    };
+
 
     private renderFullHtml = (appState, renderedMarkup) => {
         const appStateString = escape(JSON.stringify(appState));
