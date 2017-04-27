@@ -72,7 +72,6 @@ export class RenderApplication implements IApplication {
             };
             res.send(this.renderer.renderRepeater(posts, Component));
         }).catch((err) => {
-            console.log('meh');
             console.log(err);
             this.handleNotFound(req, res, next, context);
         });
